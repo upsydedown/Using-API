@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using REST APIs</title>
+    <style>
+        * {
+            padding: 0rem;
+            margin: 0rem;
+        }
+
+        body {
+            background-color: rgb(30, 108, 252);
+        }
+
+        .flexbox {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-flow: column wrap;
+        }
+
+        #container {
+            position: relative;
+            margin: 5rem;
+            top: 5rem;
+            height: 100vh;
+            width: 100%;
+        }
+
+        #main {
+            background-color: aliceblue;
+            height: 15rem;
+            width: 50rem;
+            border-radius: 5px;
+            transition: all 0.15s ease-in-out;
+        }
+
+        #main:hover {
+            transform: scale(1.01);
+            box-shadow: 0px 10px 25px 18px #0000001e;
+        }
+
+        #jokebox {
+            margin-top: 1rem;
+            width: 45rem;
+            height: 5rem;
+            border: 5px solid red;
+        }
+
+        #button {
+            margin-top: 1.5rem;
+            padding: 0.6rem 1rem 0.6rem 1rem;
+            border: 0px;
+            border-radius: 5px;
+            background-color: transparent;
+            font-size: 1.1rem;
+            transition: all 0.15s ease-in-out;
+        }
+
+        #button:hover {
+            transform: scale(1.02);
+            background-color: rgb(255, 230, 0);
+            color: rgb(0, 0, 0);
+            box-shadow: 0px 3px 25px 1px #7a7a7ab0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="container" class="flexbox">
+        <div id="main" class="flexbox">
+            <h2>DAD JOKES</h2>
+            <div id="jokebox" class="flexbox">Loading</div>
+            <button id="button">Refresh</button>
+        </div>
+    </section>
+    <script>
+        // https://icanhazdadjoke.com/
+
+        const jokes = document.querySelector('#jokebox');
+        const btn = document.querySelector('#button');
+
+        // ======Promises======
+        // const generateJokes = () => {
+        //     const setHeader = {
+        //         headers: {
+        //             Accept: "application/json"
+        //         }
+        //     }
+        //     fetch('https://icanhazdadjoke.com', setHeader)
+        //         .then((response) => response.json())
+        //         .then((data) => {
+        //             jokes.innerHTML = data.joke;
+        //         }).catch((error) => {
+        //             console.log(error);
+        //         })
+        // }
+
+        //  ======Async & Await====== 
+
+        const generateJokes = async () => {
+            try {
+                const setHeader = {
+                    headers: {
+                        Accept: "application/json"
+                    }
+                }
+                const response = await fetch('https://icanhazdadjoke.com', setHeader)
+                const data = await response.json();
+                jokes.innerHTML = data.joke;
+            }catch (error){
+            console.log(`The error is ${error}`);
+            }
+        }
+        
+        btn.addEventListener('click', generateJokes);
+        generateJokes();
+
+
+    </script>
+</body>
+
+</html>
