@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Carme&display=swap');
+
+        * {
+            padding: 0rem;
+            margin: 0rem;
+            box-sizing: border-box;
+            font-family: 'Carme', sans-serif;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            display: grid;
+            place-items: center;
+        }
+
+        form {
+            background-color: rgb(253, 190, 161);
+            padding: 1rem;
+            margin: 1rem;
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            box-shadow: 0px 5px 12px 0.9px rgba(29, 29, 29, 0.445);
+        }
+
+        .layout {
+            border: 0px;
+            height: 2.75rem;
+            width: 45.5%;
+            border-radius: 5px;
+            margin: 0.4rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        label {
+            font-size: 2rem;
+            margin: 1rem;
+        }
+
+        span {
+            font-size: 1.25rem;
+            margin: 1rem;
+            padding: 0.2rem 0.2rem 0.2rem 0.2rem;
+        }
+
+        #submit {
+            background-color: rgb(7, 176, 243);
+            color: white;
+            transition: all 0.15s ease-in-out;
+        }
+
+        #submit:hover {
+            transform: scale(1.03);
+            color: rgb(182, 182, 182);
+            background-color: rgb(1, 134, 187);
+            box-shadow: 0px 5px 12px 0.9px rgba(29, 29, 29, 0.445);
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="tempCalc" onsubmit="calculateTemp(); return false">
+        <!--So that form doesnt submit itslef automatically -->
+        <label for="temp">Enter the temperature to convert</label>
+        <input type="number" class="layout" id="temp" name="temp">
+        <select name="tempUnit" class="layout" id="tempUnit">
+            <option value="celsius"> Celsius</option>
+            <option value="fahrenheit"> Fahrenheit</option>
+        </select>
+        <input type="submit" class="layout" id="submit" name="temp">
+        <span id="result"></span>
+    </form>
+    <script>
+        const calculateTemp = () => {
+            const temperature = document.getElementById("temp").value;
+            const tempSelected = document.getElementById("tempUnit");
+            const valueTempUnit = tempUnit.options[tempSelected.selectedIndex].value;
+
+            let result;
+
+            const celsiustofahrenheit = (celsius) => {
+                let fahrenheit = Math.round((9 / 5 * celsius) + 32);
+                return fahrenheit;
+            }
+
+            const fahrenheittocelsius = (fahrenheit) => {
+                let celsius = Math.round((fahrenheit - 32) * (5 / 9));
+                return celsius;
+            }
+            if (valueTempUnit == "fahrenheit") {
+                result = fahrenheittocelsius(temperature);
+                document.getElementById("result").innerHTML = `${result} Celsius`;
+            }
+            if (valueTempUnit == "celsius") {
+                result = celsiustofahrenheit(temperature);
+                document.getElementById("result").innerHTML = `${result} Fahrenheit`;
+            }
+
+        }
+    </script>
+</body>
+</html>
