@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         @import url('https://fonts.googleapis.com/css2?family=Carme&family=Oswald:wght@600&display=swap');
+        * {
+            padding: 0rem;
+            margin: 0rem;
+            box-sizing: border-box;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            width: 100%;
+            flex-flow: row wrap;
+            gap: 0.5rem;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .counter-container {
+            flex-flow: column wrap;
+            background-color: goldenrod;
+            padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+            border-radius: 10px;
+            width: 31%;
+            height: 15rem;
+            transition: all 0.2s ease-in-out;
+        }
+        .counter-container:hover{
+            transform: translateY(-2rem);
+            box-shadow: 0px 10px 12px 0.9px rgba(29, 29, 29, 0.445);
+            cursor: pointer;
+        }
+        .counter {
+            text-align: center;
+            font-size: 1.75rem;
+        }
+
+        span {
+            font-size: 1.1rem;
+        }
+
+        i {
+            color: navy;
+            margin-bottom: 0.2rem;
+        }
+    </style>
+</head>
+
+<body class="container">
+    <div class="counter-container container ">
+        <i class="fa-solid fa-mug-hot fa-4x"></i>
+        <div class="counter" data-target="200"></div>
+        <span>Completed Projects</span>
+    </div>
+    <div class="counter-container container">
+        <i class="fa-solid fa-people-group fa-3x"></i>
+        <div class="counter" data-target="1500"></div>
+        <span>Happy <br> Clients</span>
+    </div>
+    <div class="counter-container container fa-3x">
+        <i class="fa-solid fa-diagram-project"></i>
+        <div class="counter" data-target="300"></div>
+        <span>Ongoing Projects</span>
+    </div>
+    <script>
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach((counter) => {
+            counter.innerHTML = 0;
+            const updateCounter = () => {
+                const targetCount = +counter.getAttribute('data-target');
+                const start = +counter.innerHTML;
+                const increment = targetCount / 50;
+                if (start < targetCount) {
+                    counter.innerHTML = `${Math.round(start + increment)}`;
+                    setTimeout(updateCounter, 45);
+                } else {
+                    counter.innerHTML = targetCount;
+                }
+            }
+            updateCounter();
+        })
+    </script>
+    <script src="https://kit.fontawesome.com/4b975c95af.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
